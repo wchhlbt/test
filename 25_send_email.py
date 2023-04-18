@@ -7,8 +7,8 @@ from email.mime.text import MIMEText
 from email.utils import formatdate
 import requests
 import time
-import socks
-import socket
+# import socks
+# import socket
 
 # socks5 猴子补丁
 # socks.set_default_proxy(socks.SOCKS5, "86.102.177.183", 1080)
